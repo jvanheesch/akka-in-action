@@ -1,14 +1,11 @@
 package aia.state
 
-import akka.testkit.{ TestProbe, ImplicitSender, TestKit }
-import akka.actor.{ Props, ActorSystem }
-import org.scalatest.{WordSpecLike, BeforeAndAfterAll, MustMatchers}
-import akka.actor.FSM.{
-  Transition,
-  CurrentState,
-  SubscribeTransitionCallBack
-}
-import concurrent.duration._
+import akka.actor.FSM.{CurrentState, SubscribeTransitionCallBack, Transition}
+import akka.actor.{ActorSystem, Props}
+import akka.testkit.{ImplicitSender, TestKit, TestProbe}
+import org.scalatest.{BeforeAndAfterAll, MustMatchers, WordSpecLike}
+
+import scala.concurrent.duration._
 
 class InventoryTest extends TestKit(ActorSystem("InventoryTest"))
   with WordSpecLike with BeforeAndAfterAll with MustMatchers

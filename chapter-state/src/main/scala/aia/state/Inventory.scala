@@ -1,26 +1,37 @@
 package aia.state
 
-import akka.actor.{ ActorRef, Actor, FSM }
-import math.min
+import akka.actor.{Actor, ActorRef, FSM}
+
 import scala.concurrent.duration._
+import scala.math.min
 
 // events
 case class BookRequest(context: AnyRef, target: ActorRef)
+
 case class BookSupply(nrBooks: Int)
+
 case object BookSupplySoldOut
+
 case object Done
+
 case object PendingRequests
 
 //responses
 case object PublisherRequest
+
 case class BookReply(context: AnyRef, reserveId: Either[String, Int])
 
 //states
 sealed trait State
+
 case object WaitForRequests extends State
+
 case object ProcessRequest extends State
+
 case object WaitForPublisher extends State
+
 case object SoldOut extends State
+
 case object ProcessSoldOut extends State
 
 case class StateData(nrBooksInStore: Int,
@@ -125,6 +136,7 @@ class Publisher(totalNrBooks: Int, nrBooksPerRequest: Int)
   extends Actor {
 
   var nrLeft = totalNrBooks
+
   def receive = {
     case PublisherRequest => {
       if (nrLeft == 0)
