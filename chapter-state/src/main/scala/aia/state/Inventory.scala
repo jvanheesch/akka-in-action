@@ -171,9 +171,7 @@ class InventoryWithTimer(publisher: ActorRef) extends Actor
       }
     }
     case Event(PendingRequests, data: StateData) => {
-      if (data.pendingRequests.isEmpty) {
-        stay
-      } else if (data.nrBooksInStore > 0) {
+      if (data.nrBooksInStore > 0) {
         goto(ProcessRequest)
       } else {
         goto(WaitForPublisher)
