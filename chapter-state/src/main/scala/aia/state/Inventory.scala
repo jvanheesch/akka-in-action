@@ -45,8 +45,8 @@ class Inventory(publisher: ActorRef) extends Actor
 
   when(WaitForRequests) {
     case Event(request: BookRequest, data: StateData) => {
-      log.warning("Received BookRequest: {}.", request)
-      log.warning("nrBooksInStore: {}.", data.nrBooksInStore)
+      log.debug("Received BookRequest: {}.", request)
+      log.debug("nrBooksInStore: {}.", data.nrBooksInStore)
       val newStateData = data.copy(
         pendingRequests = data.pendingRequests :+ request)
       if (newStateData.nrBooksInStore > 0) {
