@@ -1,6 +1,7 @@
 package aia.state
 
 import akka.actor.{Actor, ActorRef, FSM}
+import akka.event.LoggingReceive
 
 import scala.concurrent.duration._
 import scala.math.min
@@ -39,6 +40,8 @@ case class StateData(nrBooksInStore: Int,
 
 class Inventory(publisher: ActorRef) extends Actor
   with FSM[State, StateData] {
+
+  override def receive = LoggingReceive(super.receive)
 
   var reserveId = 0
   startWith(WaitForRequests, new StateData(0, Seq()))
